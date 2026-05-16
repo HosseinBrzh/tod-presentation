@@ -4,90 +4,132 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Beyond Heuristics — TOD Typologies in Milan FUA</title>
-<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
+<link href="https://github.com/HosseinBrzh/tod-presentation/blob/main/Background.png" rel="stylesheet">
 <style>
+
+  /* ============================================================
+     BACKGROUND IMAGE
+     Paste your image URL between the quotes below.
+     Recommended image size: 1920 × 1080 px (landscape, 16:9).
+     Supported formats: JPG, PNG, WEBP.
+     Example: url('https://yourdomain.com/your-image.jpg')
+     ============================================================ */
   :root {
-    --bg: #F7F5F0;
-    --surface: #FFFFFF;
-    --border: rgba(0,0,0,0.10);
-    --border-strong: rgba(0,0,0,0.18);
-    --text: #1A1A1A;
-    --text-muted: #6B6B6B;
-    --text-faint: #999;
-    --red: #C0392B;
-    --blue: #1A5FA8;
-    --green: #2E7D32;
-    --amber: #8B5A00;
-    --purple: #4A3999;
-    --teal: #0D6B54;
-    --thread-opacity: 0.55;
+    --bg-image: url(''); /* <-- PASTE YOUR IMAGE URL HERE */
   }
-  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
-  html, body { width: 100%; height: 100%; overflow: hidden; }
-  body {
-    font-family: 'DM Sans', sans-serif;
-    background: var(--bg);
-    color: var(--text);
-    user-select: none;
+  /* ============================================================ */
+
+  :root {
+    --bg-fallback: #EDEAE3;
+    --header-bg: rgba(255,255,255,0.82);
+    --surface: rgba(255,255,255,0.92);
+    --surface-solid: #FFFFFF;
+    --border: rgba(0,0,0,0.10);
+    --border-strong: rgba(0,0,0,0.20);
+    --text: #1A1A1A;
+    --text-muted: #5A5A5A;
+    --text-faint: #999;
+    --red:    #C0392B;
+    --blue:   #1A5FA8;
+    --green:  #2E7D32;
+    --amber:  #8B5A00;
+    --purple: #4A3999;
+    --teal:   #0D6B54;
   }
 
-  /* Header */
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body {
+    width: 100%; height: 100%;
+    overflow: hidden;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--text);
+    background-color: var(--bg-fallback);
+  }
+
+  /* Background image — covers the full viewport */
+  body::before {
+    content: '';
+    position: fixed; inset: 0;
+    background-image: var(--bg-image);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+    z-index: 0;
+  }
+
+  /* ── Header ─────────────────────────────────────────────── */
   #header {
     position: fixed; top: 0; left: 0; right: 0;
-    height: 52px;
-    background: var(--surface);
+    height: 46px;
+    background: var(--header-bg);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border-bottom: 0.5px solid var(--border-strong);
-    display: flex; align-items: center; gap: 16px;
-    padding: 0 20px;
+    display: flex; align-items: center; gap: 12px;
+    padding: 0 16px;
     z-index: 100;
   }
   #header h1 {
     font-family: 'DM Serif Display', serif;
-    font-size: 15px; font-weight: 400;
+    font-size: 13px; font-weight: 400;
     color: var(--text); flex: 1;
     white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
   }
-  #header .author { font-size: 11.5px; color: var(--text-muted); white-space: nowrap; }
-  #header .divider { width: 0.5px; height: 20px; background: var(--border-strong); }
+  #header .author {
+    font-size: 11px; color: var(--text-muted); white-space: nowrap;
+  }
+  .hdr-divider { width: 0.5px; height: 18px; background: var(--border-strong); flex-shrink: 0; }
+
   .ctrl-btn {
     font-family: 'DM Sans', sans-serif;
-    font-size: 12px; font-weight: 400;
-    padding: 5px 16px;
+    font-size: 11.5px; font-weight: 400;
+    padding: 4px 13px;
     border: 0.5px solid var(--border-strong);
     border-radius: 4px;
-    background: transparent;
+    background: var(--surface);
     color: var(--text);
-    cursor: pointer;
-    white-space: nowrap;
+    cursor: pointer; white-space: nowrap;
     transition: background 0.15s;
+    flex-shrink: 0;
   }
-  .ctrl-btn:hover { background: var(--bg); }
-  #step-counter { font-size: 12px; color: var(--text-muted); min-width: 56px; text-align: center; }
+  .ctrl-btn:hover { background: var(--surface-solid); }
+
+  #step-counter {
+    font-size: 11.5px; color: var(--text-muted);
+    min-width: 52px; text-align: center; flex-shrink: 0;
+  }
   #phase-tag {
-    font-size: 11px; font-weight: 500;
-    padding: 3px 10px;
+    font-size: 10.5px; font-weight: 500;
+    padding: 3px 9px;
     border-radius: 3px;
-    background: var(--bg);
+    background: var(--surface);
     border: 0.5px solid var(--border-strong);
     color: var(--text-muted);
-    min-width: 110px; text-align: center;
-    white-space: nowrap;
+    min-width: 120px; text-align: center;
+    white-space: nowrap; flex-shrink: 0;
   }
 
-  /* Board */
-  #board-wrap {
+  /* ── Scaling container ───────────────────────────────────── */
+  #board-outer {
     position: fixed;
-    top: 52px; left: 0; right: 0; bottom: 0;
-    overflow: auto;
-  }
-  #board {
-    position: relative;
-    width: 1200px;
-    height: 860px;
-    margin: 20px auto;
+    top: 46px; left: 0; right: 0; bottom: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1;
+    overflow: hidden;
   }
 
-  /* Threads */
+  /* Fixed logical canvas — JS scales it to fit */
+  #board-scaler {
+    width: 1000px;
+    height: 720px;
+    position: relative;
+    transform-origin: center center;
+  }
+
+  /* ── Threads SVG ─────────────────────────────────────────── */
   svg#threads {
     position: absolute; top: 0; left: 0;
     width: 100%; height: 100%;
@@ -95,17 +137,19 @@
     overflow: visible;
   }
 
-  /* Nodes */
+  /* ── Nodes ───────────────────────────────────────────────── */
   .node {
     position: absolute;
-    width: 160px;
+    width: 148px;
     background: var(--surface);
+    backdrop-filter: blur(4px);
+    -webkit-backdrop-filter: blur(4px);
     border: 0.5px solid var(--border-strong);
     border-radius: 5px;
-    padding: 8px 10px 9px;
+    padding: 7px 9px 8px;
     opacity: 0;
-    transform: translateY(6px) scale(0.96);
-    transition: opacity 0.32s ease, transform 0.32s ease;
+    transform: translateY(5px) scale(0.95);
+    transition: opacity 0.3s ease, transform 0.3s ease;
     cursor: default;
     z-index: 2;
   }
@@ -113,91 +157,104 @@
   .node:hover { z-index: 20; }
 
   .node-cat {
-    font-size: 9px; font-weight: 500;
+    font-size: 8.5px; font-weight: 500;
     text-transform: uppercase; letter-spacing: 0.07em;
-    margin-bottom: 4px;
-  }
-  .node-label {
-    font-size: 12px; font-weight: 500;
-    line-height: 1.3; color: var(--text);
     margin-bottom: 3px;
   }
+  .node-label {
+    font-size: 11px; font-weight: 500;
+    line-height: 1.3; color: var(--text);
+    margin-bottom: 2px;
+  }
   .node-sub {
-    font-size: 10.5px; color: var(--text-muted);
+    font-size: 10px; color: var(--text-muted);
     line-height: 1.35;
   }
 
-  /* Category accent */
-  .cat-problem  { border-left: 3px solid var(--red); }
-  .cat-problem .node-cat { color: var(--red); }
-  .cat-theory   { border-left: 3px solid var(--blue); }
-  .cat-theory .node-cat { color: var(--blue); }
-  .cat-evidence { border-left: 3px solid var(--green); }
-  .cat-evidence .node-cat { color: var(--green); }
-  .cat-method   { border-left: 3px solid var(--amber); }
-  .cat-method .node-cat { color: var(--amber); }
+  .cat-problem  { border-left: 3px solid var(--red);    }
+  .cat-problem  .node-cat { color: var(--red);    }
+  .cat-theory   { border-left: 3px solid var(--blue);   }
+  .cat-theory   .node-cat { color: var(--blue);   }
+  .cat-evidence { border-left: 3px solid var(--green);  }
+  .cat-evidence .node-cat { color: var(--green);  }
+  .cat-method   { border-left: 3px solid var(--amber);  }
+  .cat-method   .node-cat { color: var(--amber);  }
   .cat-result   { border-left: 3px solid var(--purple); }
-  .cat-result .node-cat { color: var(--purple); }
-  .cat-policy   { border-left: 3px solid var(--teal); }
-  .cat-policy .node-cat { color: var(--teal); }
+  .cat-result   .node-cat { color: var(--purple); }
+  .cat-policy   { border-left: 3px solid var(--teal);   }
+  .cat-policy   .node-cat { color: var(--teal);   }
 
-  /* Tooltip */
+  /* ── Tooltip ─────────────────────────────────────────────── */
   #tooltip {
     position: fixed;
-    background: var(--surface);
+    background: var(--surface-solid);
     border: 0.5px solid var(--border-strong);
     border-radius: 5px;
-    padding: 11px 14px;
-    font-size: 12px; line-height: 1.6;
-    max-width: 260px;
+    padding: 10px 13px;
+    font-size: 11.5px; line-height: 1.6;
+    max-width: 240px;
     color: var(--text);
-    z-index: 200;
+    z-index: 300;
     display: none;
     pointer-events: none;
-    box-shadow: 0 2px 12px rgba(0,0,0,0.08);
+    box-shadow: 0 2px 14px rgba(0,0,0,0.10);
   }
-  #tooltip strong { font-weight: 500; font-size: 12.5px; display: block; margin-bottom: 5px; }
+  #tooltip strong {
+    font-weight: 500; font-size: 12px;
+    display: block; margin-bottom: 5px;
+  }
 
-  /* Legend */
+  /* ── Legend ──────────────────────────────────────────────── */
   #legend {
-    position: fixed; bottom: 20px; right: 20px;
+    position: fixed; bottom: 16px; right: 16px;
     background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 0.5px solid var(--border-strong);
     border-radius: 5px;
-    padding: 10px 14px;
-    font-size: 11px; line-height: 2;
+    padding: 8px 12px;
+    font-size: 10.5px; line-height: 1.9;
     z-index: 100;
   }
-  #legend h3 { font-size: 10px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--text-faint); margin-bottom: 4px; font-weight: 500; }
-  .leg { display: flex; align-items: center; gap: 7px; color: var(--text-muted); }
-  .leg-dot { width: 9px; height: 9px; border-radius: 2px; flex-shrink: 0; }
+  #legend h3 {
+    font-size: 9.5px; text-transform: uppercase;
+    letter-spacing: 0.06em; color: var(--text-faint);
+    margin-bottom: 3px; font-weight: 500;
+  }
+  .leg { display: flex; align-items: center; gap: 6px; color: var(--text-muted); }
+  .leg-dot { width: 8px; height: 8px; border-radius: 2px; flex-shrink: 0; }
 
-  /* Hint */
+  /* ── Hint ────────────────────────────────────────────────── */
   #hint {
-    position: fixed; bottom: 20px; left: 50%; transform: translateX(-50%);
-    font-size: 11px; color: var(--text-faint);
+    position: fixed; bottom: 16px; left: 50%; transform: translateX(-50%);
+    font-size: 10.5px; color: var(--text-faint);
     background: var(--surface);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
     border: 0.5px solid var(--border);
-    border-radius: 4px; padding: 4px 12px;
-    z-index: 100;
+    border-radius: 4px; padding: 3px 11px;
+    z-index: 100; white-space: nowrap;
   }
+
 </style>
 </head>
 <body>
 
+<!-- ── Header ─────────────────────────────────────────────────── -->
 <div id="header">
   <h1>Beyond Heuristics: A Data-Driven Approach to TOD Typologies in the Milan Functional Urban Area</h1>
   <span class="author">Hossein Baroozeh · MSc Urban & Regional Planning · 2025–26</span>
-  <div class="divider"></div>
+  <div class="hdr-divider"></div>
   <button class="ctrl-btn" id="btn-prev">← Back</button>
   <span id="step-counter">0 / 20</span>
   <button class="ctrl-btn" id="btn-next">Reveal next →</button>
-  <div class="divider"></div>
+  <div class="hdr-divider"></div>
   <span id="phase-tag">Press → to begin</span>
 </div>
 
-<div id="board-wrap">
-  <div id="board">
+<!-- ── Board (auto-scales to fit viewport) ────────────────────── -->
+<div id="board-outer">
+  <div id="board-scaler">
     <svg id="threads"></svg>
   </div>
 </div>
@@ -217,122 +274,122 @@
 <div id="hint">Hover any node for details · ← → arrow keys to navigate</div>
 
 <script>
-const NW = 160, NH = 86;
+const NW = 148, NH = 78;
 
 const nodes = [
-  // ── PROBLEM ──────────────────────────────────────────────────
+  // ── PROBLEM
   { id:'n1', cat:'problem', phase:'The Problem',
     label:'Car-centric urbanisation',
-    sub:'Italy: 765 cars/1000 people; only 33% sustainable trips',
+    sub:'Italy: 765 cars/1000 people; 33% sustainable trips',
     detail:'Italy has the highest car ownership in the EU. Transport is Europe\'s largest source of GHG emissions (EEA, 2025). Cars and urban sprawl form a self-reinforcing cycle stretching back to Fordist mass production.',
-    x:20, y:20 },
+    x:10, y:10 },
   { id:'n2', cat:'problem', phase:'The Problem',
     label:'The accessibility gap',
     sub:'Cars: fast + flexible. PT: fast but rigid.',
     detail:'Cars offer door-to-door speed and flexibility. PT requires walking, waiting, and transfers. The core dilemma (Bertolini & Le Clercq, 2003): can sustainable transport match the quality of accessibility that private cars provide?',
-    x:20, y:140 },
+    x:10, y:120 },
 
-  // ── THEORY ───────────────────────────────────────────────────
+  // ── THEORY
   { id:'n3', cat:'theory', phase:'TOD Theory',
     label:'Why TOD?',
     sub:'Regional network, not isolated urban islands',
-    detail:'TOD\'s key advantage over other solutions is its regional logic. It is designed as a comprehensive accessibility network — not merely a collection of well-designed local areas. This is what makes it different.',
-    x:210, y:20 },
+    detail:'TOD\'s key advantage over other solutions is its regional logic. It is designed as a comprehensive accessibility network — not merely a collection of well-designed local areas. This is what distinguishes it.',
+    x:180, y:10 },
   { id:'n4', cat:'theory', phase:'TOD Theory',
     label:'TOD\'s core logic',
     sub:'PT speed + AT flexibility = car-level access',
     detail:'By placing most destinations within walkable distance of transit hubs, TOD combines the speed of PT with the flexibility of active transport (AT) to rival what private cars offer in terms of accessibility.',
-    x:210, y:140 },
+    x:180, y:120 },
   { id:'n5', cat:'theory', phase:'TOD Theory',
     label:'Accessibility as the key concept',
     sub:'Cost, time & comfort as competitive indicators',
     detail:'Bertolini et al. (2005): accessibility is the central concept for TOD. TOD must function as a competitive tool — matching the accessibility of unsustainable modes. Cost, time, and comfort are the key metrics.',
-    x:210, y:260 },
+    x:180, y:230 },
 
-  // ── EVIDENCE ─────────────────────────────────────────────────
+  // ── EVIDENCE
   { id:'n6', cat:'evidence', phase:'TOD Limits',
     label:'Does TOD cause modal shift?',
     sub:'Empirical answer: not automatically',
     detail:'Research shows that good PT access is necessary but not sufficient. Mode choice is shaped by much more than infrastructure quality. People do not switch simply because the network is there.',
-    x:400, y:60 },
+    x:350, y:50 },
   { id:'n7', cat:'evidence', phase:'TOD Limits',
     label:'Socio-demographic lock-in',
     sub:'Behaviour, not infrastructure, drives choice',
     detail:'Longitudinal studies show that people who prefer cars continue to use them regardless of PT quality or neighbourhood design. Mode choice is entrenched in identity and socio-demographic profile.',
-    x:400, y:180 },
+    x:350, y:160 },
   { id:'n8', cat:'evidence', phase:'TOD Limits',
     label:'Residential self-selection',
     sub:'PT users cluster near PT — no net gain',
     detail:'TOD-oriented people move to well-served areas. The overall modal split does not improve. This is the self-selection trap (Kamruzzaman, 2014) — and the concept of TOD consonance vs. dissonance.',
-    x:400, y:300 },
+    x:350, y:270 },
 
-  // ── CONCLUSION / INTERVENTIONS ───────────────────────────────
+  // ── CONCLUSION / INTERVENTIONS
   { id:'n9', cat:'theory', phase:'TOD Limits',
     label:'TOD: necessary but insufficient',
     sub:'Infrastructure ≠ behaviour change',
     detail:'TOD provides the physical precondition for sustainable mobility but cannot alone produce modal shift. It establishes the basis — complementary interventions are required to make it effective.',
-    x:590, y:120 },
+    x:520, y:105 },
   { id:'n10', cat:'theory', phase:'TOD Limits',
     label:'Push + pull interventions',
     sub:'Congestion pricing, parking policy, incentives',
     detail:'Push policies raise the cost and friction of driving. Pull policies improve the appeal of PT and AT. Together with TOD, these can collectively challenge car dependency and produce genuine modal shift.',
-    x:590, y:250 },
+    x:520, y:220 },
 
-  // ── METHODOLOGY ──────────────────────────────────────────────
+  // ── METHODOLOGY
   { id:'n11', cat:'method', phase:'Methodology',
     label:'From theory to practice',
-    sub:'Every city context is unique — how to proceed?',
+    sub:'Every city context is unique',
     detail:'The key research question: given that every city has a unique urban form, governance system, and transit baseline, how do we translate TOD theory into targeted, context-sensitive action for Milan?',
-    x:20, y:430 },
+    x:10, y:390 },
   { id:'n12', cat:'method', phase:'Methodology',
     label:'Study area: Milan FUA',
     sub:'131 stations · OECD boundary · 129 analysed',
-    detail:'The OECD-defined Functional Urban Area (FUA) of Milan was selected as the macro extent. 131 train stations identified within this boundary; 2 ghost stations with no scheduled services excluded → 129 stations.',
-    x:210, y:430 },
+    detail:'The OECD-defined Functional Urban Area (FUA) of Milan was selected as the macro extent. 131 train stations within this boundary; 2 ghost stations excluded → 129 stations analysed.',
+    x:180, y:390 },
   { id:'n13', cat:'method', phase:'Methodology',
     label:'Data-driven EFA',
-    sub:'MinRes extraction · 27 variables · 4 iterations',
-    detail:'Exploratory Factor Analysis (EFA) with Minimum Residuals replaces heuristic, predefined dimensions. 27 standardised variables. 4 iterative refinement cycles to ensure statistical robustness. Catchment areas via network analysis.',
-    x:400, y:430 },
+    sub:'MinRes · 27 variables · 4 iterations',
+    detail:'Exploratory Factor Analysis (EFA) with Minimum Residuals replaces heuristic predefined dimensions. 27 standardised variables across 4 iterative refinement cycles. Catchment areas via network analysis.',
+    x:350, y:390 },
   { id:'n14', cat:'method', phase:'Methodology',
     label:'Three latent factors',
     sub:'F1 Accessibility · F2 Intensity · F3 Walkability',
-    detail:'Factor 1: Multimodal Regional Accessibility. Factor 2: Local Intensity & Services (density, bus services). Factor 3: Urban Fabric & Walkable Design (intersection density, street density, residential proportion). Together: 62% of variance explained.',
-    x:590, y:430 },
+    detail:'Factor 1: Multimodal Regional Accessibility. Factor 2: Local Intensity & Services. Factor 3: Urban Fabric & Walkable Design. Together: 62% of variance explained.',
+    x:520, y:390 },
   { id:'n15', cat:'method', phase:'Methodology',
-    label:"Hierarchical clustering",
+    label:'Hierarchical clustering',
     sub:"Ward's method → 7 typologies",
-    detail:"Ward's hierarchical clustering applied to factor scores. A dendrogram was used to identify the optimal cut: 7 distinct clusters. The method is fully data-driven — no subjective pre-labelling of cluster types.",
-    x:800, y:430 },
+    detail:"Ward's hierarchical clustering applied to factor scores. A dendrogram identified the optimal cut: 7 distinct clusters. Fully data-driven — no subjective pre-labelling.",
+    x:690, y:390 },
 
-  // ── RESULTS ──────────────────────────────────────────────────
+  // ── RESULTS
   { id:'n16', cat:'result', phase:'Results',
     label:'C7 · Urban Stations (13)',
-    sub:'High F1 + F2 + F3 · Inner Milan',
-    detail:'Highest scores across all three dimensions. Dense, mixed-use, walkable. Stations include Milano Centrale area, Sesto S. Giovanni, Saronno. Primarily need soft interventions: cycling, pedestrian quality, behavioural incentives.',
-    x:20, y:640 },
+    sub:'High F1+F2+F3 · Inner Milan',
+    detail:'Highest scores across all three dimensions. Dense, mixed-use, walkable. Primarily need soft interventions: cycling infrastructure, pedestrian quality, behavioural incentives.',
+    x:10, y:560 },
   { id:'n17', cat:'result', phase:'Results',
     label:'C6 · Unsustained Nodes (3)',
     sub:'Extreme F1, low F2/F3 · Stressed gateways',
-    detail:'Milano Garibaldi, Bovisa Politecnico, Rogoredo. Highest regional connectivity (reach 45–63 stations in 30 min) but fragmented, unwalkable catchment areas. Classic Bertolini (1999) "stress" condition: node dominates place.',
-    x:210, y:640 },
+    detail:'Milano Garibaldi, Bovisa Politecnico, Rogoredo. Highest regional connectivity but fragmented, unwalkable catchment areas. Classic Bertolini (1999) "stress" condition.',
+    x:180, y:560 },
   { id:'n18', cat:'result', phase:'Results',
     label:'C5 · Suburb Stations (25)',
-    sub:'Moderate transit · Low walkability · TAD pattern',
-    detail:'Mostly suburban. High-rise development near stations built for regional accessibility, not walkability. Transit-Adjacent Development (TAD) rather than TOD. Corsico falls here — the original case study that prompted the thesis.',
-    x:400, y:640 },
+    sub:'Moderate transit · Low walkability · TAD',
+    detail:'Mostly suburban. High-rise development near stations built for regional access, not walkability. Transit-Adjacent Development (TAD) rather than TOD. Corsico falls here.',
+    x:350, y:560 },
   { id:'n19', cat:'result', phase:'Results',
-    label:'C4–C1 · Peripheral (74 stations)',
+    label:'C4–C1 · Peripheral (74)',
     sub:'Low transit · Varied density · Car-dependent',
-    detail:'C4: compact low-rise, good walkable design but poor transit. C3: low density, car-centric village fabric. C2: dispersed settlements effectively car-dependent (29 stations). C1: non-residential destinations — airports, industrial (19 stations). Not suitable for TOD.',
-    x:590, y:640 },
+    detail:'C4: compact low-rise, good design but poor transit. C3: low density, car-centric. C2: dispersed, car-dependent (29 stations). C1: non-residential — airports, industrial (19 stations).',
+    x:520, y:560 },
 
-  // ── POLICY ───────────────────────────────────────────────────
+  // ── POLICY
   { id:'n20', cat:'policy', phase:'Policy Recommendations',
     label:'Cluster-based policy packages',
     sub:'Targeted interventions per typology',
-    detail:'C7: soft interventions, AT promotion, urban quality. C6: activate catchment areas, remove physical barriers. C5: selective densification, anti-superblock zoning. C4: improve transit frequency, feeder services. C3: sub-city centres, anti-sprawl zoning. C2: long-term TOD zoning. C1: not suitable for TOD.',
-    x:800, y:640 },
+    detail:'C7: soft interventions, AT promotion. C6: activate catchment areas, remove barriers. C5: selective densification, anti-superblock zoning. C4: improve transit frequency. C3: sub-city centres, anti-sprawl. C2: long-term TOD zoning. C1: not suitable for TOD.',
+    x:690, y:560 },
 ];
 
 const edges = [
@@ -352,10 +409,10 @@ const catColor = {
   method:'#8B5A00', result:'#4A3999', policy:'#0D6B54'
 };
 
-// Build DOM
-const board = document.getElementById('board');
-const svg   = document.getElementById('threads');
-const tip   = document.getElementById('tooltip');
+/* ── Build DOM ───────────────────────────────────────────────── */
+const scaler  = document.getElementById('board-scaler');
+const svg     = document.getElementById('threads');
+const tip     = document.getElementById('tooltip');
 const nodeMap = {}, domMap = {}, lineList = [];
 
 nodes.forEach(n => {
@@ -369,15 +426,14 @@ nodes.forEach(n => {
   d.addEventListener('mouseenter', ev => showTip(n, ev));
   d.addEventListener('mousemove',  ev => moveTip(ev));
   d.addEventListener('mouseleave', () => { tip.style.display = 'none'; });
-  board.appendChild(d);
+  scaler.appendChild(d);
   domMap[n.id] = d;
 });
 
 edges.forEach(([a, b]) => {
   const nA = nodeMap[a], nB = nodeMap[b];
-  const color = catColor[nA.cat] || '#888';
   const line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-  line.setAttribute('stroke', color);
+  line.setAttribute('stroke', catColor[nA.cat] || '#888');
   line.setAttribute('stroke-width', '1');
   line.setAttribute('opacity', '0');
   line.setAttribute('stroke-dasharray', '5 4');
@@ -389,6 +445,19 @@ edges.forEach(([a, b]) => {
   lineList.push({ el: line, a, b });
 });
 
+/* ── Responsive scaling ──────────────────────────────────────── */
+const CANVAS_W = 1000, CANVAS_H = 720, HEADER_H = 46;
+
+function fitBoard() {
+  const availW = window.innerWidth;
+  const availH = window.innerHeight - HEADER_H;
+  const scale  = Math.min(availW / CANVAS_W, availH / CANVAS_H, 1);
+  scaler.style.transform = `scale(${scale})`;
+}
+fitBoard();
+window.addEventListener('resize', fitBoard);
+
+/* ── Tooltip ─────────────────────────────────────────────────── */
 function showTip(n, ev) {
   tip.innerHTML = `<strong>${n.label}</strong>${n.detail}`;
   tip.style.display = 'block';
@@ -396,13 +465,13 @@ function showTip(n, ev) {
 }
 function moveTip(ev) {
   let x = ev.clientX + 14, y = ev.clientY + 14;
-  if (x + 265 > window.innerWidth)  x = ev.clientX - 270;
-  if (y + 150 > window.innerHeight) y = ev.clientY - 155;
+  if (x + 250 > window.innerWidth)  x = ev.clientX - 255;
+  if (y + 160 > window.innerHeight) y = ev.clientY - 165;
   tip.style.left = x + 'px';
   tip.style.top  = y + 'px';
 }
 
-// Reveal logic
+/* ── Reveal logic ────────────────────────────────────────────── */
 const order = nodes.map(n => n.id);
 let revealed = 0;
 
@@ -417,8 +486,8 @@ function revealNext() {
   domMap[order[revealed]].classList.add('visible');
   revealed++;
   lineList.forEach(({ el, a, b }) => {
-    const ai = order.indexOf(a), bi = order.indexOf(b);
-    if (ai < revealed && bi < revealed) el.setAttribute('opacity', '0.5');
+    if (order.indexOf(a) < revealed && order.indexOf(b) < revealed)
+      el.setAttribute('opacity', '0.5');
   });
   updateUI();
 }
@@ -429,8 +498,8 @@ function revealPrev() {
   domMap[order[revealed]].classList.remove('visible');
   tip.style.display = 'none';
   lineList.forEach(({ el, a, b }) => {
-    const ai = order.indexOf(a), bi = order.indexOf(b);
-    if (ai >= revealed || bi >= revealed) el.setAttribute('opacity', '0');
+    if (order.indexOf(a) >= revealed || order.indexOf(b) >= revealed)
+      el.setAttribute('opacity', '0');
   });
   updateUI();
 }
